@@ -10,6 +10,13 @@
 *.userosscache
 *.sln.docstates
 *.env
+*.dill
+*.hdf5
+*.h5
+**/brute_force_report.tsv
+
+# User-specific folder
+**/all_ligands_sacess_brute_force_mixed_noise/figures/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

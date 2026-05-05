@@ -1,0 +1,59 @@
+parameterId	parameterScale	lowerBound	upperBound	nominalValue	estimate	parameterType
+b_AhRR	log10	1.00E-10	1e-2	0.00116796	1	
+rho_Cyp	log10	1.00E-2	1e+8	0.003426009	1	
+b_Cyp_basal	log10	1.00E-10	1.00E-02	1.0	0	
+b_AhRR_basal	log10	1.00E-10	1.00E-02	1	1	
+k1_AhRL	log10	1.00E-05	1e+05	25716548.58	1	
+k_diss_AhRL	log10	1.00E-05	1.00E+05	1	1	
+k1_AhRR_ARNT	log10	1.00E-05	1e+5	0.000184547	1	
+k_diss_AhRR_ARNT	log10	1.00E-05	1.00E+05	1	1	
+k1_Cyp1a1	log10	1.00E-05	1e+5	32622.59303	1	
+k1_dna_ahrr	log10	1.00E-05	1.00E+05		1	
+k_diss_dna_ahrr	log10	1.00E-05	1.00E+05		1	
+k1_dna_cyp	log10	1.00E-05	1.00E+05		1	
+k_diss_dna_cyp	log10	1.00E-05	1.00E+05		1	
+k1_heterodim	log10	1.00E-05	1.00E+05	7690.60006	1	
+k_diss_heterodim	log10	1.00E-05	1.00E+05	1	1	
+k1_Lentry	log10	1.00E-01	1.00E+01	0.7	1	
+k2_Lentry	log10	1.00E-01	1.00E+01	1	1	
+k1_nuclearimport	log10	1e-5	1e+5	0.000362458	1	
+k1_rep_dna_ahrr	log10	1.00E-05	1.00E+05		1	
+k_diss_rep_dna_ahrr	log10	1.00E-05	1.00E+05		1	
+k1_rep_dna_cyp	log10	1.00E-05	1.00E+05		1	
+k_diss_rep_dna_cyp	log10	1.00E-05	1.00E+05		1	
+m_AhRR	log10	1.00E-07	1e-1	6663.320924	1	
+m_Cyp	log10	1.00E-07	1e-1	5.030605342	1	
+s_mRNA_Cyp1a1_1	log10	1.00E-05	1.00E02	1.30197069e-04	1	
+s_mRNA_AhRR_1	log10	1.00E-05	1.00E02	2.39824805	1	
+tau_AhR	log10	1.00E-06	1e-3	16.54211569	1	
+tau_AhRR	log10	1.00E-06	1e-3	1.43E-05	1	
+tau_Cyp1a1	log10	1.00E-06	1e-3	1.686150147	1	
+tau_mRNA_AhRR	log10	1.00E-05	1e-3		1	
+tau_mRNA_Cyp	log10	1.00E-05	1e-3		1	
+tau_nAhRL	log10	1.00E-06	1e-3	0.244212654	1	
+tau_nARNT	log10	1.00E-06	1e-3	0.272144346	1	
+tau_eL	log10	0.9e-4	1.1e-4	1	1	
+tot_pAhRR	lin			0.166	0	
+tot_pCyp1a1	lin			0.166	0	
+v_AhR	log10	1.00E-06	1	1713.194547	1	
+v_nARNT	log10	1.00E-06	1	0.059367433	1	
+cc1_AhRL	log10	1.00E-05	1.00E+05	1.0	1	
+cc2_AhRL	log10	1.00E-05	1.00E+05	1.0	1	
+cc1_nuclearimport	log10	1.00E-05	1.00E+05	1.0	1	
+cc1_heterodim	log10	1.00E-05	1.00E+05	1.0	1	
+cc2_heterodim	log10	1.00E-05	1.00E+05	1.0	1	
+cc1_dna_ahrr	log10	1.00E-05	1.00E+05	1.0	1	
+cc2_dna_ahrr	log10	1.00E-05	1.00E+05	1.0	1	
+cc1_dna_cyp	log10	1.00E-05	1.00E+05	1.0	1	
+cc2_dna_cyp	log10	1.00E-05	1.00E+05	1.0	1	
+cc_AhRR	log10	1.00E-05	1.00E+05	1.0	1	
+cc_Cyp	log10	1.00E-05	1.00E+05	1.0	1	
+cc_nAhRL	log10	1.00E-05	1.00E+05	1.0	1	
+cc_eL	log10	1.00E-05	1.00E+05	1.0	1	
+cc1_Cyp1a1	log10	1.00E-05	1.00E+05	1.0	1	
+cc1_Lentry	log10	1.00E-05	1.00E+05	1.0	1	
+cc2_Lentry	log10	1.00E-05	1.00E+05	1.0	1	
+sigma0_mRNA_Cyp1a1	log10	1.00E-05	1.00E+05	1.0	1	
+sigma1_mRNA_Cyp1a1	log10	1.00E-05	1.00E+05	1.0	1	
+sigma0_mRNA_AhRR	log10	1.00E-05	1.00E+05	1.0	1	
+sigma1_mRNA_AhRR	log10	1.00E-05	1.00E+05	1.0	1	

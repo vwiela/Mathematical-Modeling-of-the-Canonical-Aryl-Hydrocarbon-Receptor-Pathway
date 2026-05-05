@@ -1,0 +1,261 @@
+import warnings
+warnings.filterwarnings('ignore')
+
+import copy
+import pypesto
+import petab
+import fides
+import pypesto.petab
+import pypesto.select
+import pypesto.optimize as optimize
+from pypesto.ensemble import Ensemble
+import pypesto.visualize as visualize
+import pypesto.visualize.model_fit
+import amici
+import numpy as np
+import numpy.matlib as nm
+import matplotlib.pyplot as plt
+import pandas as pd
+import libsbml
+import sys
+from pypesto.store import save_to_hdf5
+import dill
+import pypesto.hierarchical
+from pypesto.store import read_from_hdf5
+import pypesto.sample as sample
+import os
+from pathlib import Path
+import csv
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import AgglomerativeClustering
+from sklearn.metrics import euclidean_distances
+
+from pypesto.result import OptimizerResult, Result
+
+# import model_selection_functionalities as msfunc
+import petab_select
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PETAB_DIR = PROJECT_ROOT / "petab"
+MODEL_SELECTION_DIR = PROJECT_ROOT / "results" / "model_selection" / "all_ligands_sacess_brute_force_mixed_noise"
+BEST_MODEL_OPTIM_DIR = MODEL_SELECTION_DIR / "best_models_optim"
+BEST_MODEL_RESULTS_DIR = MODEL_SELECTION_DIR / "best"
+
+engine = pypesto.engine.MultiProcessEngine()
+
+def objective_customizer(objective):
+    objective.amici_solver.setRelativeTolerance(1e-12)
+    objective.amici_solver.setAbsoluteTolerance(1e-8)
+    objective.amici_solver.setMaxSteps(10**6)
+    objective.amici_solver.setSensitivityMethod(amici.SensitivityMethod_adjoint)
+    pass
+
+def vector_to_result(free_par_vector, pypesto_problem):
+    fake_result = Result()
+    optimizer_result = OptimizerResult(
+    id="fake_result_for_problem_with_no_estimated_parameters",
+    x=pypesto_problem.objective.pre_post_processor.preprocess(free_par_vector),
+    fval=pypesto_problem.objective(free_par_vector),
+    grad=None,
+    hess=None,
+    res=None,
+    sres=None,
+    n_fval=1,
+    n_grad=0,
+    n_hess=0,
+    n_res=0,
+    n_sres=0,
+    x0=[],
+    fval0=pypesto_problem.objective(free_par_vector),
+    history=None,
+    exitflag=0,
+    time=10,
+    message="Fake result for problem with no estimated parameters.",
+)
+    fake_result.optimize_result.append(optimizer_result)
+    fake_result.problem = pypesto_problem
+    return fake_result
+
+models_to_sample = ['M100',
+ 'M11',
+ 'M114',
+ 'M117',
+ 'M318',
+ 'M331',
+ 'M335',
+ 'M360',
+ 'M535',
+ 'M64',
+ 'M66',
+ 'M77',
+ 'M78',
+ 'M8',
+ 'M83',
+ 'M87',
+ 'M88',
+ 'M97',
+ 'M99']
+ 
+
+model = "bmm_model_reduced"
+data = "BpA_3MC_ICZ_mixed_noise"
+model_name = f"{model}_{data}"
+yaml_file = PETAB_DIR / data / "full_petab_problem.yaml"
+
+petab_problem = petab.Problem.from_yaml(yaml_file)
+
+output_path = BEST_MODEL_OPTIM_DIR
+root_path = SCRIPT_DIR
+BEST_MODEL_RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
+models_dict = {}
+for model_id in models_to_sample:
+    model_no = model_id.split("M")[1] 
+    for file in os.listdir(os.path.join(root_path, "input/")):
+        if f"{model_no}" == file.split(".")[0]:
+            models_dict[model_id] = petab_select.model.Model.from_yaml(os.path.join(root_path, f"input/{file}"))
+
+ensemble_trajectory_dict = {}
+ensemble_rdatas_dict = {}
+for model_id, model in models_dict.items():
+    pypesto_problem = pypesto.select.model_to_pypesto_problem(model)
+    # set the solver
+    objective_customizer(pypesto_problem.objective)
+    # make one result objects out of the single optimization runs
+    full_result = pypesto.Result()
+    full_result.problem = pypesto_problem
+    for model_run in range(12):
+        unique_tag = f"{model_id}_{model_run}"
+        # get the result
+        result = pypesto.store.read_result(os.path.join(output_path, f"{unique_tag}.hdf5"), problem=False, sample=False)
+        full_result.optimize_result.list.extend(result.optimize_result.list)
+    
+    # create ensemble
+    rel_cutoff = 3.84
+    full_ens = Ensemble.from_optimization_endpoints(full_result, rel_cutoff = rel_cutoff)
+          
+    # save the ensemble
+    with open(BEST_MODEL_RESULTS_DIR / f"full_ensemble_{model_id}.dill", "wb") as f:
+        dill.dump(full_ens, f)
+    pypesto.store.write_result(full_result, BEST_MODEL_RESULTS_DIR / f"full_result_{model_id}.hdf5", overwrite=True, problem=True, optimize=True)
+    if full_ens.n_vectors > 500:
+        considered_starts = np.arange(start=0, stop=full_ens.n_vectors, step=np.round(full_ens.n_vectors/500), dtype=int)
+    else:
+        considered_starts = range(full_ens.n_vectors)
+    for index in considered_starts:
+        x = full_ens.x_vectors[:, index]
+        # simulate one trajectory with amici and store it.
+        parameter_mapping = pypesto_problem.objective.parameter_mapping
+        edatas = copy.deepcopy(pypesto_problem.objective.edatas)
+        amici_model = pypesto_problem.objective.amici_model
+        amici_solver = pypesto_problem.objective.amici_solver
+        
+        conditions = sorted(petab_problem.condition_df.index) # since amici gives rdatas with alphabetically sorted conditions
+        ncond = len(conditions)
+
+        observable_ids = petab_problem.get_observable_ids()
+        meas_df = petab_problem.measurement_df
+        meas_timepoints = meas_df['time'].unique()
+        ntimepoints = len(meas_timepoints)
+        sim_timepoints = np.linspace(0, meas_timepoints[-1], 1000)
+
+        # testing only, check that objective is callable on the vector
+        #objective_result = pypesto_problem.objective(x, return_dict=True)
+        
+        x_full = pypesto_problem.get_full_vector(x)
+        x_dct = dict(zip(pypesto_problem.x_names, x_full))
+
+        for j in range(ncond):
+            edatas[j].setTimepoints(sim_timepoints)
+
+        amici.petab.conditions.fill_in_parameters(
+            edatas=edatas,
+            problem_parameters=x_dct,
+            scaled_parameters=True,
+            parameter_mapping=parameter_mapping,
+            amici_model=amici_model,
+        )
+
+        rdatas = amici.runAmiciSimulations(
+                    amici_model,
+                    amici_solver,
+                    edatas,
+                )
+
+        # store the rdatas if successful
+        if np.all([rdatas[i].status == 0 for i in range(len(rdatas))]):
+            model_traj_dict = {}
+            model_traj_dict["t"] = rdatas[0].t
+            for k in range(3):
+                model_traj_dict[rdatas[k].id] = rdatas[k].x
+                model_traj_dict[f"obs_{rdatas[k].id}"] = rdatas[k].y
+            ensemble_trajectory_dict[f"{model_id}_{index}"] = model_traj_dict
+            ensemble_rdatas_dict[f"{model_id}_{index}"] = rdatas
+        else:
+            print(f"Simulation failed for model: {model_id}_{index}")
+            
+    
+# save the ensemble
+with open(MODEL_SELECTION_DIR / "full_trajectories_ensemble.dill", "wb") as f:
+    dill.dump(ensemble_trajectory_dict, f)        
+        
+    
+time_series = np.stack([np.concatenate([rdata[i].x for i in range(3)], axis=1) for _, rdata in ensemble_rdatas_dict.items()])
+
+# Standardizing the data
+scaler = StandardScaler()
+normalized_time_series = np.copy(time_series)
+for i in range(time_series.shape[-1]):
+    max = np.max(time_series[:,:,i])
+    min = np.min(time_series[:,:,i])
+    normalized_time_series[:,:,i] = max - time_series[:,:,i]/(max-min)
+
+def overall_distance_matrix_euclid(time_series, log=False):
+    """
+    Compute the overall distance matrix averaged over all conditions using eucliedean distance pointwise.
+    ----------------------------------------------------------------
+    Parameters
+    ----------
+    time_series : np.ndarray
+        A 3D array of shape (n_samples, n_timepoints, n_conditions) containing the time series data.
+    ----------------------------------------------------------------
+    Returns
+    -------
+    dist_matrix : np.ndarray
+        A 2D array representing the average distance matrix across all conditions.
+    ----------------------------------------------------------------
+    This function computes the average distance matrix across all conditions in the provided time series data.
+    """
+    dist_matrices = []
+    for i in range(time_series.shape[-1]):
+        dist_matrices.append(euclidean_distances(time_series[:, :, i]))
+    dist_matrix = np.mean(dist_matrices, axis=0)
+    return dist_matrix
+
+dist_matrix = overall_distance_matrix_euclid(normalized_time_series)
+all_traj_model = AgglomerativeClustering(n_clusters=5, metric='precomputed', linkage="complete", compute_distances=True, compute_full_tree=True)
+all_traj_model.fit(dist_matrix)
+
+
+# save the time series
+with open(MODEL_SELECTION_DIR / "full_trajectories_timeseries.dill", "wb") as f:
+    dill.dump(normalized_time_series, f)   
+
+# save the distance matrix
+with open(MODEL_SELECTION_DIR / "full_trajectories_dist_matrix.dill", "wb") as f:
+    dill.dump(dist_matrix, f)   
+
+# save the cluster model
+with open(MODEL_SELECTION_DIR / "full_trajectories_5_clusters.dill", "wb") as f:
+    dill.dump(all_traj_model, f)   
+
+# more clusters
+dist_matrix = overall_distance_matrix_euclid(normalized_time_series)
+all_traj_model = AgglomerativeClustering(n_clusters=10, metric='precomputed', linkage="complete", compute_distances=True, compute_full_tree=True)
+all_traj_model.fit(dist_matrix)
+
+# save the cluster model
+with open(MODEL_SELECTION_DIR / "full_trajectories_10_clsuters.dill", "wb") as f:
+    dill.dump(all_traj_model, f)   

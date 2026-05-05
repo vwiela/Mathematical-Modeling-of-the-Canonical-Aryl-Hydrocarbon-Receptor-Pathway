@@ -1,0 +1,3 @@
+observableId	observableFormula	noiseFormula
+mRNA_Cyp1a1_1	observableParameter1_mRNA_Cyp1a1_1*mRNA_Cyp1a1	sigma0_mRNA_Cyp1a1+sigma1_mRNA_Cyp1a1*(observableParameter1_mRNA_Cyp1a1_1*mRNA_Cyp1a1)
+mRNA_AhRR_1	observableParameter1_mRNA_AhRR_1*mRNA_AhRR	sigma0_mRNA_AhRR+sigma1_mRNA_AhRR*(observableParameter1_mRNA_AhRR_1*mRNA_AhRR)

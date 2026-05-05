@@ -1,0 +1,41 @@
+criteria: {}
+estimated_parameters: {}
+model_hash: f7dcc8195d46c5f6697b3b90aa4bff8b0e6c9f2f14e13dbffd570356d23a972baede3cae491239d8d51458fce4116c6560dbe3756f230a867e9153898d13c42c
+model_id: f7dcc8195d46c5f6697b3b90aa4bff8b0e6c9f2f14e13dbffd570356d23a972baede3cae491239d8d51458fce4116c6560dbe3756f230a867e9153898d13c42c
+model_subspace_id: M
+model_subspace_indices:
+- 1
+- 0
+- 1
+- 1
+- 1
+- 0
+- 1
+- 0
+- 0
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+- 0
+parameters:
+  cc1_AhRL: estimate
+  cc1_Cyp1a1: estimate
+  cc1_Lentry: estimate
+  cc1_dna_ahrr: estimate
+  cc1_dna_cyp: estimate
+  cc1_heterodim: estimate
+  cc1_nuclearimport: 1
+  cc2_AhRL: 1
+  cc2_Lentry: 1
+  cc2_dna_ahrr: 1
+  cc2_dna_cyp: 1
+  cc2_heterodim: estimate
+  cc_AhRR: estimate
+  cc_Cyp: estimate
+  cc_eL: estimate
+  cc_nAhRL: estimate
+petab_yaml: /home/vincent/ahr_modelling/aggregated_model/bmm_cell_model_reduced/model_selection/petab/petab_select_mixed_noise/full_petab_problem.yaml
+predecessor_model_hash: null

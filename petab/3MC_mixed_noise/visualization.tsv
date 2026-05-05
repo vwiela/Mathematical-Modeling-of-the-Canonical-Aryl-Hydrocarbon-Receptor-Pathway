@@ -1,0 +1,3 @@
+plotId	plotName	plotTypeSimulation	plotTypeData	datasetId	xValues	xOffset	xLabel	xScale	yValues	yOffset	yLabel	yScale	legendEntry
+plot1	time kinetic	LinePlot	MeanAndSEM	bmm_kinetics_3MC	time	0	t[s]	lin	mRNA_AhRR_1	0	y(t)	lin	mRNA_AhRR
+plot2	time kinetic	LinePlot	MeanAndSEM	bmm_kinetics_3MC	time	0	t[s]	lin	mRNA_Cyp1a1_1	0	y(t)	lin	mRNA_Cyp1a1

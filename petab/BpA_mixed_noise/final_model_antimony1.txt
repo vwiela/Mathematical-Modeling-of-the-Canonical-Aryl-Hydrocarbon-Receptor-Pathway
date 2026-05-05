@@ -1,0 +1,187 @@
+// Created by libAntimony v2.13.2
+function Constant_flux__irreversible(v)
+  v;
+end
+
+Constant_flux__irreversible is "Constant flux (irreversible)"
+
+function Transcription_2(b_AhRR, b_AhRR_basal, nAhR_L_ARNT_pAhRR)
+  b_AhRR*nAhR_L_ARNT_pAhRR + b_AhRR_basal;
+end
+
+Transcription_2 is "Transcription_2"
+
+function Function_for_4_2___Cyp1a1_expression(mRNA_Cyp1a1, m_Cyp, nucleus)
+  nucleus*m_Cyp*mRNA_Cyp1a1;
+end
+
+Function_for_4_2___Cyp1a1_expression is "Function for 4.2 - Cyp1a1 expression"
+
+function Transcription_1(rho_Cyp, b_Cyp_basal, nAhR_L_ARNT_pCyp1a1)
+  b_Cyp_basal*rho_Cyp*nAhR_L_ARNT_pCyp1a1 + b_Cyp_basal;
+end
+
+Transcription_1 is "Transcription_1"
+
+
+model *final_irina_sd()
+
+  // Compartments and Species:
+  compartment cytoplasm, extracellular, nucleus;
+  species cCyp1a1 in cytoplasm, cL in cytoplasm, eL in extracellular, cAhR in cytoplasm;
+  species cAhR_L in cytoplasm, nAhRR in nucleus, nAhR_L in nucleus, nARNT in nucleus;
+  species nAhR_L_ARNT in nucleus, nAhRR_ARNT in nucleus, nAhR_L_ARNT_pCyp1a1 in nucleus;
+  species pCyp1a1 in nucleus, nAhR_L_ARNT_pAhRR in nucleus, pAhRR in nucleus;
+  species nAhRR_ARNT_pAhRR in nucleus, nAhRR_ARNT_pCyp1a1 in nucleus, mRNA_AhRR in nucleus;
+  species mRNA_Cyp1a1 in nucleus;
+
+  // Reactions:
+  _4_3___Cyp1a1_degradation: cCyp1a1 => ; cytoplasm*tau_Cyp1a1*cCyp1a1;
+  _1_1___Ligand_entry: eL -> cL; k1_Lentry*c1_Lentry*eL - k2_Lentry*c2_Lentry*cL;
+  _2_1_AhR_production:  => cAhR; cytoplasm*Constant_flux__irreversible(v_AhR);
+  _2_3_AhR_degradation: cAhR => ; cytoplasm*tau_AhR*cAhR;
+  _2_2_Ligand_binding: cL + cAhR -> cAhR_L; cytoplasm*(k1_AhRL*c1_AhRL*cL*cAhR - c2_AhRL*(k1_AhRL/k_diss_AhRL)*cAhR_L);
+  _3_2_nAhR_degradation: nAhR_L => ; nucleus*c_nAhRL*tau_nAhRL*nAhR_L;
+  _5_2_AhRR_degradation: nAhRR => ; nucleus*tau_AhRR*nAhRR;
+  _3_1_Nuclear_Import: cAhR_L => nAhR_L; c1_nuclearimport*k1_nuclearimport*cAhR_L;
+  _3_3_nARNT_production:  => nARNT; nucleus*Constant_flux__irreversible(v_nARNT);
+  _6_2_nARNT_degradation: nARNT => ; nucleus*tau_nARNT*nARNT;
+  _3_4_Heterodimerization: nAhR_L + nARNT -> nAhR_L_ARNT; nucleus*(c1_heterodim*k1_heterodim*nAhR_L*nARNT - c2_heterodim*(k1_heterodim/k_diss_heterodim)*nAhR_L_ARNT);
+  _5_2___AhRR_inhibition: nAhRR + nARNT -> nAhRR_ARNT; nucleus*(k1_AhRR_ARNT*nAhRR*nARNT - (k1_AhRR_ARNT/k_diss_AhRR_ARNT)*nAhRR_ARNT);
+  _4_0___DNA_binding_Cyp1a1: nAhR_L_ARNT + pCyp1a1 -> nAhR_L_ARNT_pCyp1a1; nucleus*(c1_dna_cyp*k1_dna_cyp*nAhR_L_ARNT*pCyp1a1 - c2_dna_cyp*(k1_dna_cyp/k_diss_dna_cyp)*nAhR_L_ARNT_pCyp1a1);
+  _4_1___mRNA_Cyp1a1_expression:  => mRNA_Cyp1a1; nucleus*Transcription_1(b_Cyp_basal*c_Cyp*rho_Cyp, b_Cyp_basal, nAhR_L_ARNT_pCyp1a1);
+  _5_1___mRNA_AhRR_expression:  => mRNA_AhRR; nucleus*Transcription_2(c_AhRR*b_AhRR, b_AhRR_basal, nAhR_L_ARNT_pAhRR);
+  _5_4___Inhibition_AhRR_expression: nAhRR_ARNT + pAhRR -> nAhRR_ARNT_pAhRR; nucleus*(k1_rep_dna_ahrr*nAhRR_ARNT*pAhRR - (k1_rep_dna_ahrr/k_diss_rep_dna_ahrr)*nAhRR_ARNT_pAhRR);
+  _5_0___DNA_binding_AhRR: nAhR_L_ARNT + pAhRR -> nAhR_L_ARNT_pAhRR; nucleus*(c1_dna_ahrr*k1_dna_ahrr*nAhR_L_ARNT*pAhRR - c2_dna_ahrr*(k1_dna_ahrr/k_diss_dna_ahrr)*nAhR_L_ARNT_pAhRR);
+  _4_3___Inhibition_Cyp1a1_expression: nAhRR_ARNT + pCyp1a1 -> nAhRR_ARNT_pCyp1a1; nucleus*(k1_rep_dna_cyp*nAhRR_ARNT*pCyp1a1 - (k1_rep_dna_cyp/k_diss_rep_dna_cyp)*nAhRR_ARNT_pCyp1a1);
+  _5_2___AhRR_expression: mRNA_AhRR => nAhRR + mRNA_AhRR; nucleus*m_AhRR*mRNA_AhRR;
+  _4_2___Cyp1a1_expression: mRNA_Cyp1a1 => cCyp1a1 + mRNA_Cyp1a1; Function_for_4_2___Cyp1a1_expression(mRNA_Cyp1a1, m_Cyp, nucleus);
+  _4_5___mRNA_Cyp1a1_degradation: mRNA_Cyp1a1 => ; nucleus*tau_mRNA_Cyp*mRNA_Cyp1a1;
+  _5_6___mRNA_AhRR_degradation: mRNA_AhRR => ; nucleus*tau_mRNA_AhRR*mRNA_AhRR;
+  _1_0___eL_degradation: eL => ; extracellular*c_eL*tau_eL*eL;
+  _2_4___cL_degradation: cL + cCyp1a1 => cCyp1a1; cytoplasm*c1_Cyp1a1*k1_Cyp1a1*cL*cCyp1a1;
+
+  // Species initializations:
+  cCyp1a1 = nucleus*m_Cyp*b_Cyp_basal/(cytoplasm*tau_Cyp1a1*tau_mRNA_Cyp);
+  cL = 0;
+  eL = init_eL;
+  cAhR = v_AhR/tau_AhR;
+  cAhR_L = 0;
+  nAhRR = m_AhRR*b_AhRR_basal/(tau_mRNA_AhRR*tau_AhRR);
+  nAhR_L = 0;
+  nARNT = v_nARNT/tau_nARNT;
+  nAhR_L_ARNT = 0;
+  nAhRR_ARNT = k1_AhRR_ARNT*m_AhRR*b_AhRR_basal*v_nARNT/((k1_AhRR_ARNT/k_diss_AhRR_ARNT)*tau_mRNA_AhRR*tau_AhRR*tau_nARNT);
+  nAhR_L_ARNT_pCyp1a1 = 0;
+  pCyp1a1 = tot_pCyp1a1 - k1_rep_dna_cyp*nAhRR_ARNT*tot_pCyp1a1/(k1_rep_dna_cyp*nAhRR_ARNT + k1_rep_dna_cyp/k_diss_rep_dna_cyp);
+  nAhR_L_ARNT_pAhRR = 0;
+  pAhRR = tot_pAhRR - k1_rep_dna_ahrr*nAhRR_ARNT*tot_pAhRR/(k1_rep_dna_ahrr*nAhRR_ARNT + k1_rep_dna_ahrr/k_diss_rep_dna_ahrr);
+  nAhRR_ARNT_pAhRR = k1_rep_dna_ahrr*nAhRR_ARNT*tot_pAhRR/(k1_rep_dna_ahrr*nAhRR_ARNT + k1_rep_dna_ahrr/k_diss_rep_dna_ahrr);
+  nAhRR_ARNT_pCyp1a1 = k1_rep_dna_cyp*nAhRR_ARNT*tot_pCyp1a1/(k1_rep_dna_cyp*nAhRR_ARNT + k1_rep_dna_cyp/k_diss_rep_dna_cyp);
+  mRNA_AhRR = b_AhRR_basal/tau_mRNA_AhRR;
+  mRNA_Cyp1a1 = b_Cyp_basal/tau_mRNA_Cyp;
+
+  // Compartment initializations:
+  cytoplasm = 1e-12;
+  extracellular = 1;
+  nucleus = 1e-14;
+
+  // Variable initializations:
+  m_Cyp = 0.0001;
+  b_Cyp_basal = 0.001;
+  tau_Cyp1a1 = 1e-05;
+  tau_mRNA_Cyp = 0.0001;
+  init_eL = 2500;
+  v_AhR = 0.001;
+  tau_AhR = 1e-05;
+  m_AhRR = 0.0001;
+  b_AhRR_basal = 0.001;
+  tau_mRNA_AhRR = 0.0001;
+  tau_AhRR = 1e-05;
+  v_nARNT = 0.02;
+  tau_nARNT = 1e-05;
+  k1_AhRR_ARNT = 10;
+  k_diss_AhRR_ARNT = 1;
+  tot_pCyp1a1 = 0.166;
+  k1_rep_dna_cyp = 10;
+  k_diss_rep_dna_cyp = 1;
+  tot_pAhRR = 0.166;
+  k1_rep_dna_ahrr = 10;
+  k_diss_rep_dna_ahrr = 1;
+  k1_Lentry = 1;
+  k2_Lentry = 1;
+  k1_Cyp1a1 = 1;
+  k1_AhRL = 10;
+  k_diss_AhRL = 1;
+  k1_nuclearimport = 10;
+  tau_nAhRL = 0.0001;
+  k1_heterodim = 10;
+  k_diss_heterodim = 1;
+  s_ProtCyp1a1 = 1;
+  s_mRNACyp1a1 = 1;
+  s_luciferase = 1;
+  k1_dna_cyp = 10;
+  k_diss_dna_cyp = 1;
+  k1_dna_ahrr = 10;
+  k_diss_dna_ahrr = 1;
+  rho_Cyp = 0.001;
+  b_AhRR = 0.001;
+  tau_eL = 0.0001;
+  c1_AhRL = 1.0;
+  c2_AhRL = 1.0;
+  c1_nuclearimport = 1.0;
+  c1_heterodim = 1.0;
+  c2_heterodim = 1.0;
+  c1_dna_ahrr = 1.0;
+  c2_dna_ahrr = 1.0;
+  c1_dna_cyp = 1.0;
+  c2_dna_cyp = 1.0;
+  c_AhRR = 1.0;
+  c_Cyp = 1.0;
+  c_nAhRL = 1.0;
+  c_eL = 1.0;
+  c1_Cyp1a1 = 1.0;
+  c1_Lentry = 1.0;
+  c2_Lentry = 1.0;
+
+  // Other declarations:
+  const cytoplasm, extracellular, nucleus, m_Cyp, b_Cyp_basal, tau_Cyp1a1;
+  const tau_mRNA_Cyp, init_eL, v_AhR, tau_AhR, m_AhRR, b_AhRR_basal, tau_mRNA_AhRR;
+  const tau_AhRR, v_nARNT, tau_nARNT, k1_AhRR_ARNT, k_diss_AhRR_ARNT, tot_pCyp1a1;
+  const k1_rep_dna_cyp, k_diss_rep_dna_cyp, tot_pAhRR, k1_rep_dna_ahrr, k_diss_rep_dna_ahrr;
+  const k1_Lentry, k2_Lentry, k1_Cyp1a1, k1_AhRL, k_diss_AhRL, k1_nuclearimport;
+  const tau_nAhRL, k1_heterodim, k_diss_heterodim, s_ProtCyp1a1, s_mRNACyp1a1;
+  const s_luciferase, k1_dna_cyp, k_diss_dna_cyp, k1_dna_ahrr, k_diss_dna_ahrr;
+  const rho_Cyp, b_AhRR, tau_eL;
+  const c1_AhRL, c2_AhRL, c1_nuclearimport, c1_heterodim, c2_heterodim, c1_dna_ahrr, c2_dna_ahrr, c1_dna_cyp;
+  const c2_dna_cyp, c_AhRR, c_Cyp, c_nAhRL, c_eL, c1_Cyp1a1, c1_Lentry, c2_Lentry;
+  
+  // Unit definitions:
+  unit substance = 1e-9 mole;
+
+  // Display Names:
+  _4_3___Cyp1a1_degradation is "4.4 - Cyp1a1 degradation";
+  _1_1___Ligand_entry is "1.1 - Ligand entry";
+  _2_1_AhR_production is "2.1 - cAhR production";
+  _2_3_AhR_degradation is "2.3 - cAhR degradation";
+  _2_2_Ligand_binding is "2.2 - Ligand binding";
+  _3_2_nAhR_degradation is "3.2 - nAhR degradation";
+  _5_2_AhRR_degradation is "5.5 - AhRR degradation";
+  _3_1_Nuclear_Import is "3.1 - Nuclear Import";
+  _3_3_nARNT_production is "3.3 - nARNT production";
+  _6_2_nARNT_degradation is "3.5 - nARNT degradation";
+  _3_4_Heterodimerization is "3.4 - Heterodimerization";
+  _5_2___AhRR_inhibition is "5.3 - AhRR_ARNT binding";
+  _4_0___DNA_binding_Cyp1a1 is "4.0 - DNA binding Cyp1a1";
+  _4_1___mRNA_Cyp1a1_expression is "4.1 - mRNA_Cyp1a1 expression";
+  _5_1___mRNA_AhRR_expression is "5.1 - mRNA_AhRR expression";
+  _5_4___Inhibition_AhRR_expression is "5.4 - Inhibition AhRR expression";
+  _5_0___DNA_binding_AhRR is "5.0 - DNA binding AhRR";
+  _4_3___Inhibition_Cyp1a1_expression is "4.3 - Inhibition Cyp1a1 expression";
+  _5_2___AhRR_expression is "5.2 - AhRR expression";
+  _4_2___Cyp1a1_expression is "4.2 - Cyp1a1 expression";
+  _4_5___mRNA_Cyp1a1_degradation is "4.5 - mRNA_Cyp1a1 degradation";
+  _5_6___mRNA_AhRR_degradation is "5.6 - mRNA_AhRR degradation";
+  _1_0___eL_degradation is "1.0 - eL degradation";
+  _2_4___cL_degradation is "2.4 - cL degradation";
+end

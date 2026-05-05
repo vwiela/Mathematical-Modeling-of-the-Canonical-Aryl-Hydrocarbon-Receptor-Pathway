@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.13.4 with libSBML version 5.20.0. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="final_irina_sd" id="final_irina_sd" substanceUnits="substance">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="Constant_flux__irreversible" name="Constant flux (irreversible)">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> v </ci>
+            </bvar>
+            <ci> v </ci>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="Transcription_2" name="Transcription_2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> b_AhRR </ci>
+            </bvar>
+            <bvar>
+              <ci> b_AhRR_basal </ci>
+            </bvar>
+            <bvar>
+              <ci> nAhR_L_ARNT_pAhRR </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> b_AhRR </ci>
+                <ci> nAhR_L_ARNT_pAhRR </ci>
+              </apply>
+              <ci> b_AhRR_basal </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="Function_for_4_2___Cyp1a1_expression" name="Function for 4.2 - Cyp1a1 expression">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> mRNA_Cyp1a1 </ci>
+            </bvar>
+            <bvar>
+              <ci> m_Cyp </ci>
+            </bvar>
+            <bvar>
+              <ci> nucleus </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <ci> m_Cyp </ci>
+              <ci> mRNA_Cyp1a1 </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="Transcription_1" name="Transcription_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> rho_Cyp </ci>
+            </bvar>
+            <bvar>
+              <ci> b_Cyp_basal </ci>
+            </bvar>
+            <bvar>
+              <ci> nAhR_L_ARNT_pCyp1a1 </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> b_Cyp_basal </ci>
+                <ci> rho_Cyp </ci>
+                <ci> nAhR_L_ARNT_pCyp1a1 </ci>
+              </apply>
+              <ci> b_Cyp_basal </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfUnitDefinitions>
+      <unitDefinition id="substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-9" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="cytoplasm" spatialDimensions="3" size="1e-12" constant="true"/>
+      <compartment id="extracellular" spatialDimensions="3" size="1" constant="true"/>
+      <compartment id="nucleus" spatialDimensions="3" size="1e-14" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="cCyp1a1" compartment="cytoplasm" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="cL" compartment="cytoplasm" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="eL" compartment="extracellular" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="cAhR" compartment="cytoplasm" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="cAhR_L" compartment="cytoplasm" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="nAhRR" compartment="nucleus" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="nAhR_L" compartment="nucleus" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="nARNT" compartment="nucleus" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="nAhR_L_ARNT" compartment="nucleus" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="nAhRR_ARNT" compartment="nucleus" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="nAhR_L_ARNT_pCyp1a1" compartment="nucleus" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="pCyp1a1" compartment="nucleus" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="nAhR_L_ARNT_pAhRR" compartment="nucleus" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="pAhRR" compartment="nucleus" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="nAhRR_ARNT_pAhRR" compartment="nucleus" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="nAhRR_ARNT_pCyp1a1" compartment="nucleus" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="mRNA_AhRR" compartment="nucleus" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="mRNA_Cyp1a1" compartment="nucleus" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="tau_Cyp1a1" value="1e-05" constant="true"/>
+      <parameter id="k1_Lentry" value="1" constant="true"/>
+      <parameter id="c1_Lentry" value="1" constant="true"/>
+      <parameter id="k2_Lentry" value="1" constant="true"/>
+      <parameter id="c2_Lentry" value="1" constant="true"/>
+      <parameter id="v_AhR" value="0.001" constant="true"/>
+      <parameter id="tau_AhR" value="1e-05" constant="true"/>
+      <parameter id="k1_AhRL" value="10" constant="true"/>
+      <parameter id="c1_AhRL" value="1" constant="true"/>
+      <parameter id="c2_AhRL" value="1" constant="true"/>
+      <parameter id="k_diss_AhRL" value="1" constant="true"/>
+      <parameter id="c_nAhRL" value="1" constant="true"/>
+      <parameter id="tau_nAhRL" value="0.0001" constant="true"/>
+      <parameter id="tau_AhRR" value="1e-05" constant="true"/>
+      <parameter id="c1_nuclearimport" value="1" constant="true"/>
+      <parameter id="k1_nuclearimport" value="10" constant="true"/>
+      <parameter id="v_nARNT" value="0.02" constant="true"/>
+      <parameter id="tau_nARNT" value="1e-05" constant="true"/>
+      <parameter id="c1_heterodim" value="1" constant="true"/>
+      <parameter id="k1_heterodim" value="10" constant="true"/>
+      <parameter id="c2_heterodim" value="1" constant="true"/>
+      <parameter id="k_diss_heterodim" value="1" constant="true"/>
+      <parameter id="k1_AhRR_ARNT" value="10" constant="true"/>
+      <parameter id="k_diss_AhRR_ARNT" value="1" constant="true"/>
+      <parameter id="c1_dna_cyp" value="1" constant="true"/>
+      <parameter id="k1_dna_cyp" value="10" constant="true"/>
+      <parameter id="c2_dna_cyp" value="1" constant="true"/>
+      <parameter id="k_diss_dna_cyp" value="1" constant="true"/>
+      <parameter id="b_Cyp_basal" value="0.001" constant="true"/>
+      <parameter id="c_Cyp" value="1" constant="true"/>
+      <parameter id="rho_Cyp" value="0.001" constant="true"/>
+      <parameter id="c_AhRR" value="1" constant="true"/>
+      <parameter id="b_AhRR" value="0.001" constant="true"/>
+      <parameter id="b_AhRR_basal" value="0.001" constant="true"/>
+      <parameter id="k1_rep_dna_ahrr" value="10" constant="true"/>
+      <parameter id="k_diss_rep_dna_ahrr" value="1" constant="true"/>
+      <parameter id="c1_dna_ahrr" value="1" constant="true"/>
+      <parameter id="k1_dna_ahrr" value="10" constant="true"/>
+      <parameter id="c2_dna_ahrr" value="1" constant="true"/>
+      <parameter id="k_diss_dna_ahrr" value="1" constant="true"/>
+      <parameter id="k1_rep_dna_cyp" value="10" constant="true"/>
+      <parameter id="k_diss_rep_dna_cyp" value="1" constant="true"/>
+      <parameter id="m_AhRR" value="0.0001" constant="true"/>
+      <parameter id="m_Cyp" value="0.0001" constant="true"/>
+      <parameter id="tau_mRNA_Cyp" value="0.0001" constant="true"/>
+      <parameter id="tau_mRNA_AhRR" value="0.0001" constant="true"/>
+      <parameter id="c_eL" value="1" constant="true"/>
+      <parameter id="tau_eL" value="0.0001" constant="true"/>
+      <parameter id="c1_Cyp1a1" value="1" constant="true"/>
+      <parameter id="k1_Cyp1a1" value="1" constant="true"/>
+      <parameter id="const_L_degrad" value="1" constant="true"/>
+      <parameter id="init_eL" value="2500" constant="true"/>
+      <parameter id="tot_pCyp1a1" value="0.166" constant="true"/>
+      <parameter id="tot_pAhRR" value="0.166" constant="true"/>
+      <parameter id="s_ProtCyp1a1" value="1" constant="true"/>
+      <parameter id="s_mRNACyp1a1" value="1" constant="true"/>
+      <parameter id="s_luciferase" value="1" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="cCyp1a1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <ci> m_Cyp </ci>
+              <ci> b_Cyp_basal </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> cytoplasm </ci>
+              <ci> tau_Cyp1a1 </ci>
+              <ci> tau_mRNA_Cyp </ci>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="eL">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> init_eL </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="cAhR">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> v_AhR </ci>
+            <ci> tau_AhR </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="nAhRR">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> m_AhRR </ci>
+              <ci> b_AhRR_basal </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> tau_mRNA_AhRR </ci>
+              <ci> tau_AhRR </ci>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="nARNT">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> v_nARNT </ci>
+            <ci> tau_nARNT </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="nAhRR_ARNT">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> k1_AhRR_ARNT </ci>
+              <ci> m_AhRR </ci>
+              <ci> b_AhRR_basal </ci>
+              <ci> v_nARNT </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <ci> k1_AhRR_ARNT </ci>
+                <ci> k_diss_AhRR_ARNT </ci>
+              </apply>
+              <ci> tau_mRNA_AhRR </ci>
+              <ci> tau_AhRR </ci>
+              <ci> tau_nARNT </ci>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="pCyp1a1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> tot_pCyp1a1 </ci>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k1_rep_dna_cyp </ci>
+                <ci> nAhRR_ARNT </ci>
+                <ci> tot_pCyp1a1 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> k1_rep_dna_cyp </ci>
+                  <ci> nAhRR_ARNT </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> k1_rep_dna_cyp </ci>
+                  <ci> k_diss_rep_dna_cyp </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="pAhRR">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> tot_pAhRR </ci>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k1_rep_dna_ahrr </ci>
+                <ci> nAhRR_ARNT </ci>
+                <ci> tot_pAhRR </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> k1_rep_dna_ahrr </ci>
+                  <ci> nAhRR_ARNT </ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <ci> k1_rep_dna_ahrr </ci>
+                  <ci> k_diss_rep_dna_ahrr </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="nAhRR_ARNT_pAhRR">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> k1_rep_dna_ahrr </ci>
+              <ci> nAhRR_ARNT </ci>
+              <ci> tot_pAhRR </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> k1_rep_dna_ahrr </ci>
+                <ci> nAhRR_ARNT </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> k1_rep_dna_ahrr </ci>
+                <ci> k_diss_rep_dna_ahrr </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="nAhRR_ARNT_pCyp1a1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> k1_rep_dna_cyp </ci>
+              <ci> nAhRR_ARNT </ci>
+              <ci> tot_pCyp1a1 </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> k1_rep_dna_cyp </ci>
+                <ci> nAhRR_ARNT </ci>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> k1_rep_dna_cyp </ci>
+                <ci> k_diss_rep_dna_cyp </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="mRNA_AhRR">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> b_AhRR_basal </ci>
+            <ci> tau_mRNA_AhRR </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="mRNA_Cyp1a1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> b_Cyp_basal </ci>
+            <ci> tau_mRNA_Cyp </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfReactions>
+      <reaction id="_4_3___Cyp1a1_degradation" name="4.4 - Cyp1a1 degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="cCyp1a1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> cytoplasm </ci>
+              <ci> tau_Cyp1a1 </ci>
+              <ci> cCyp1a1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_1_1___Ligand_entry" name="1.1 - Ligand entry" reversible="true">
+        <listOfReactants>
+          <speciesReference species="eL" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cL" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> k1_Lentry </ci>
+                <ci> c1_Lentry </ci>
+                <ci> eL </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> k2_Lentry </ci>
+                <ci> c2_Lentry </ci>
+                <ci> cL </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_2_1_AhR_production" name="2.1 - cAhR production" reversible="false">
+        <listOfProducts>
+          <speciesReference species="cAhR" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> cytoplasm </ci>
+              <apply>
+                <ci> Constant_flux__irreversible </ci>
+                <ci> v_AhR </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_2_3_AhR_degradation" name="2.3 - cAhR degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="cAhR" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> cytoplasm </ci>
+              <ci> tau_AhR </ci>
+              <ci> cAhR </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_2_2_Ligand_binding" name="2.2 - Ligand binding" reversible="true">
+        <listOfReactants>
+          <speciesReference species="cL" stoichiometry="1" constant="true"/>
+          <speciesReference species="cAhR" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cAhR_L" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> cytoplasm </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> k1_AhRL </ci>
+                  <ci> c1_AhRL </ci>
+                  <ci> cL </ci>
+                  <ci> cAhR </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> c2_AhRL </ci>
+                  <apply>
+                    <divide/>
+                    <ci> k1_AhRL </ci>
+                    <ci> k_diss_AhRL </ci>
+                  </apply>
+                  <ci> cAhR_L </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_3_2_nAhR_degradation" name="3.2 - nAhR degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="nAhR_L" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <ci> c_nAhRL </ci>
+              <ci> tau_nAhRL </ci>
+              <ci> nAhR_L </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_5_2_AhRR_degradation" name="5.5 - AhRR degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="nAhRR" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <ci> tau_AhRR </ci>
+              <ci> nAhRR </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_3_1_Nuclear_Import" name="3.1 - Nuclear Import" reversible="false">
+        <listOfReactants>
+          <speciesReference species="cAhR_L" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="nAhR_L" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> c1_nuclearimport </ci>
+              <ci> k1_nuclearimport </ci>
+              <ci> cAhR_L </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_3_3_nARNT_production" name="3.3 - nARNT production" reversible="false">
+        <listOfProducts>
+          <speciesReference species="nARNT" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <apply>
+                <ci> Constant_flux__irreversible </ci>
+                <ci> v_nARNT </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_6_2_nARNT_degradation" name="3.5 - nARNT degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="nARNT" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <ci> tau_nARNT </ci>
+              <ci> nARNT </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_3_4_Heterodimerization" name="3.4 - Heterodimerization" reversible="true">
+        <listOfReactants>
+          <speciesReference species="nAhR_L" stoichiometry="1" constant="true"/>
+          <speciesReference species="nARNT" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="nAhR_L_ARNT" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> c1_heterodim </ci>
+                  <ci> k1_heterodim </ci>
+                  <ci> nAhR_L </ci>
+                  <ci> nARNT </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> c2_heterodim </ci>
+                  <apply>
+                    <divide/>
+                    <ci> k1_heterodim </ci>
+                    <ci> k_diss_heterodim </ci>
+                  </apply>
+                  <ci> nAhR_L_ARNT </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_5_2___AhRR_inhibition" name="5.3 - AhRR_ARNT binding" reversible="true">
+        <listOfReactants>
+          <speciesReference species="nAhRR" stoichiometry="1" constant="true"/>
+          <speciesReference species="nARNT" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="nAhRR_ARNT" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> k1_AhRR_ARNT </ci>
+                  <ci> nAhRR </ci>
+                  <ci> nARNT </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> k1_AhRR_ARNT </ci>
+                    <ci> k_diss_AhRR_ARNT </ci>
+                  </apply>
+                  <ci> nAhRR_ARNT </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_4_0___DNA_binding_Cyp1a1" name="4.0 - DNA binding Cyp1a1" reversible="true">
+        <listOfReactants>
+          <speciesReference species="nAhR_L_ARNT" stoichiometry="1" constant="true"/>
+          <speciesReference species="pCyp1a1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="nAhR_L_ARNT_pCyp1a1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> c1_dna_cyp </ci>
+                  <ci> k1_dna_cyp </ci>
+                  <ci> nAhR_L_ARNT </ci>
+                  <ci> pCyp1a1 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> c2_dna_cyp </ci>
+                  <apply>
+                    <divide/>
+                    <ci> k1_dna_cyp </ci>
+                    <ci> k_diss_dna_cyp </ci>
+                  </apply>
+                  <ci> nAhR_L_ARNT_pCyp1a1 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_4_1___mRNA_Cyp1a1_expression" name="4.1 - mRNA_Cyp1a1 expression" reversible="false">
+        <listOfProducts>
+          <speciesReference species="mRNA_Cyp1a1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="nAhR_L_ARNT_pCyp1a1"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <apply>
+                <ci> Transcription_1 </ci>
+                <apply>
+                  <times/>
+                  <ci> b_Cyp_basal </ci>
+                  <ci> c_Cyp </ci>
+                  <ci> rho_Cyp </ci>
+                </apply>
+                <ci> b_Cyp_basal </ci>
+                <ci> nAhR_L_ARNT_pCyp1a1 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_5_1___mRNA_AhRR_expression" name="5.1 - mRNA_AhRR expression" reversible="false">
+        <listOfProducts>
+          <speciesReference species="mRNA_AhRR" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="nAhR_L_ARNT_pAhRR"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <apply>
+                <ci> Transcription_2 </ci>
+                <apply>
+                  <times/>
+                  <ci> c_AhRR </ci>
+                  <ci> b_AhRR </ci>
+                </apply>
+                <ci> b_AhRR_basal </ci>
+                <ci> nAhR_L_ARNT_pAhRR </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_5_4___Inhibition_AhRR_expression" name="5.4 - Inhibition AhRR expression" reversible="true">
+        <listOfReactants>
+          <speciesReference species="nAhRR_ARNT" stoichiometry="1" constant="true"/>
+          <speciesReference species="pAhRR" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="nAhRR_ARNT_pAhRR" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> k1_rep_dna_ahrr </ci>
+                  <ci> nAhRR_ARNT </ci>
+                  <ci> pAhRR </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> k1_rep_dna_ahrr </ci>
+                    <ci> k_diss_rep_dna_ahrr </ci>
+                  </apply>
+                  <ci> nAhRR_ARNT_pAhRR </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_5_0___DNA_binding_AhRR" name="5.0 - DNA binding AhRR" reversible="true">
+        <listOfReactants>
+          <speciesReference species="nAhR_L_ARNT" stoichiometry="1" constant="true"/>
+          <speciesReference species="pAhRR" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="nAhR_L_ARNT_pAhRR" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> c1_dna_ahrr </ci>
+                  <ci> k1_dna_ahrr </ci>
+                  <ci> nAhR_L_ARNT </ci>
+                  <ci> pAhRR </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> c2_dna_ahrr </ci>
+                  <apply>
+                    <divide/>
+                    <ci> k1_dna_ahrr </ci>
+                    <ci> k_diss_dna_ahrr </ci>
+                  </apply>
+                  <ci> nAhR_L_ARNT_pAhRR </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_4_3___Inhibition_Cyp1a1_expression" name="4.3 - Inhibition Cyp1a1 expression" reversible="true">
+        <listOfReactants>
+          <speciesReference species="nAhRR_ARNT" stoichiometry="1" constant="true"/>
+          <speciesReference species="pCyp1a1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="nAhRR_ARNT_pCyp1a1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> k1_rep_dna_cyp </ci>
+                  <ci> nAhRR_ARNT </ci>
+                  <ci> pCyp1a1 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <ci> k1_rep_dna_cyp </ci>
+                    <ci> k_diss_rep_dna_cyp </ci>
+                  </apply>
+                  <ci> nAhRR_ARNT_pCyp1a1 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_5_2___AhRR_expression" name="5.2 - AhRR expression" reversible="false">
+        <listOfReactants>
+          <speciesReference species="mRNA_AhRR" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="nAhRR" stoichiometry="1" constant="true"/>
+          <speciesReference species="mRNA_AhRR" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <ci> m_AhRR </ci>
+              <ci> mRNA_AhRR </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_4_2___Cyp1a1_expression" name="4.2 - Cyp1a1 expression" reversible="false">
+        <listOfReactants>
+          <speciesReference species="mRNA_Cyp1a1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cCyp1a1" stoichiometry="1" constant="true"/>
+          <speciesReference species="mRNA_Cyp1a1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> Function_for_4_2___Cyp1a1_expression </ci>
+              <ci> mRNA_Cyp1a1 </ci>
+              <ci> m_Cyp </ci>
+              <ci> nucleus </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_4_5___mRNA_Cyp1a1_degradation" name="4.5 - mRNA_Cyp1a1 degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="mRNA_Cyp1a1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <ci> tau_mRNA_Cyp </ci>
+              <ci> mRNA_Cyp1a1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_5_6___mRNA_AhRR_degradation" name="5.6 - mRNA_AhRR degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="mRNA_AhRR" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nucleus </ci>
+              <ci> tau_mRNA_AhRR </ci>
+              <ci> mRNA_AhRR </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_1_0___eL_degradation" name="1.0 - eL degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="eL" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> extracellular </ci>
+              <ci> c_eL </ci>
+              <ci> tau_eL </ci>
+              <ci> eL </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="_2_4___cL_degradation" name="2.4 - cL degradation" reversible="false">
+        <listOfReactants>
+          <speciesReference species="cL" stoichiometry="1" constant="true"/>
+          <speciesReference species="cCyp1a1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cCyp1a1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> cytoplasm </ci>
+                <ci> const_L_degrad </ci>
+                <ci> cL </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> cytoplasm </ci>
+                <ci> c1_Cyp1a1 </ci>
+                <ci> k1_Cyp1a1 </ci>
+                <ci> cL </ci>
+                <ci> cCyp1a1 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

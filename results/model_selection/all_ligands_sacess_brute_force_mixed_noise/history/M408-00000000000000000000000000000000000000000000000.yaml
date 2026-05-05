@@ -1,0 +1,148 @@
+model_subspace_id: M408
+model_subspace_indices:
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+criteria:
+  NLLH: 229.1470320173471
+  AICc: 594.9607307013608
+model_hash: M408-00000000000000000000000000000000000000000000000
+model_subspace_petab_yaml: /home/vincent/PhD/Projects/Ahr_modelling/bmm_cell_model_reduced/petab/model_selection/petab_select_all_ligands_brute_force_mixed_noise/full_petab_problem.yaml
+estimated_parameters:
+  b_AhRR: 0.009999998382026379
+  rho_Cyp: 34772.44886219076
+  b_AhRR_basal: 1.0000000002815334e-10
+  k1_AhRL: 1.0000000000000551e-05
+  k_diss_AhRL: 0.045913469794337865
+  k1_AhRR_ARNT: 3.1555319227406433
+  k_diss_AhRR_ARNT: 1193.0112769079583
+  k1_Cyp1a1: 4.352832800195875
+  k1_dna_ahrr: 38.05010694245425
+  k_diss_dna_ahrr: 917.6993830416792
+  k1_dna_cyp: 2895.6518094359803
+  k_diss_dna_cyp: 859.6666789078575
+  k1_heterodim: 544.5311139740015
+  k_diss_heterodim: 1.0001251223091524e-05
+  k1_Lentry: 0.10000000000000529
+  k2_Lentry: 9.999999999999458
+  k1_nuclearimport: 446.79725326596594
+  k1_rep_dna_ahrr: 0.00017134337410594456
+  k_diss_rep_dna_ahrr: 0.41158394513471264
+  k1_rep_dna_cyp: 37.750802191991006
+  k_diss_rep_dna_cyp: 529.9218187121535
+  m_AhRR: 0.00012382976002560503
+  m_Cyp: 0.002413478552067886
+  s_mRNA_Cyp1a1_1: 1.0000000000001043e-05
+  s_mRNA_AhRR_1: 0.5449128590907292
+  tau_AhR: 1.000103426380941e-06
+  tau_AhRR: 5.732969898460767e-05
+  tau_Cyp1a1: 6.222052110801e-06
+  tau_mRNA_AhRR: 9.285868716464096e-05
+  tau_mRNA_Cyp: 2.2027605209898853e-05
+  tau_nAhRL: 8.029566100724383e-06
+  tau_nARNT: 7.407859567027063e-05
+  tau_eL: 0.00010999999999999232
+  v_AhR: 6.163697788967031e-06
+  v_nARNT: 0.000767728167718999
+  BpA_const_L_degrad: 38.353383216982124
+  BpA_c2_Lentry: 65.25883744790795
+  sigma0_mRNA_Cyp1a1: 0.00042438706013018173
+  sigma1_mRNA_Cyp1a1: 0.6841950681510202
+  sigma0_mRNA_AhRR: 0.07820109722812424
+  sigma1_mRNA_AhRR: 0.32242968383849646
+iteration: null
+model_id: M408-00000000000000000000000000000000000000000000000
+model_label: null
+parameters:
+  BpA_c1_AhRL: 1
+  BpA_c2_AhRL: 1
+  BpA_c1_nuclearimport: 1
+  BpA_c1_heterodim: 1
+  BpA_c2_heterodim: 1
+  BpA_c1_dna_ahrr: 1
+  BpA_c2_dna_ahrr: 1
+  BpA_c1_dna_cyp: 1
+  BpA_c2_dna_cyp: 1
+  BpA_c_AhRR: 1
+  BpA_c_Cyp: 1
+  BpA_c_nAhRL: 1
+  BpA_c_eL: 1
+  BpA_c1_Lentry: 1
+  BpA_c2_Lentry: estimate
+  ICZ_c1_AhRL: 1
+  ICZ_c2_AhRL: 1
+  ICZ_c1_nuclearimport: 1
+  ICZ_c1_heterodim: 1
+  ICZ_c2_heterodim: 1
+  ICZ_c1_dna_ahrr: 1
+  ICZ_c2_dna_ahrr: 1
+  ICZ_c1_dna_cyp: 1
+  ICZ_c2_dna_cyp: 1
+  ICZ_c_AhRR: 1
+  ICZ_c_Cyp: 1
+  ICZ_c_nAhRL: 1
+  ICZ_c_eL: 1
+  ICZ_c1_Cyp1a1: 1
+  ICZ_c1_Lentry: 1
+  ICZ_c2_Lentry: 1
+  MC3_c1_AhRL: 1
+  MC3_c2_AhRL: 1
+  MC3_c1_nuclearimport: 1
+  MC3_c1_heterodim: 1
+  MC3_c2_heterodim: 1
+  MC3_c1_dna_ahrr: 1
+  MC3_c2_dna_ahrr: 1
+  MC3_c1_dna_cyp: 1
+  MC3_c2_dna_cyp: 1
+  MC3_c_AhRR: 1
+  MC3_c_Cyp: 1
+  MC3_c_nAhRL: 1
+  MC3_c_eL: 1
+  MC3_c1_Cyp1a1: 1
+  MC3_c1_Lentry: 1
+  MC3_c2_Lentry: 1
+predecessor_model_hash: virtual_initial_model-

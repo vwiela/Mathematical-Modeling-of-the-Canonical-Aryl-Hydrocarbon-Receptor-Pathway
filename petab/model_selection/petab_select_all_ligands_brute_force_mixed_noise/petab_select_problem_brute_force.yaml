@@ -1,0 +1,10 @@
+format_version: beta_1
+criterion: AICc
+method: brute_force
+model_space_files:
+- model_space.tsv
+candidate_space_arguments:
+  critical_parameter_sets: []
+  consecutive_laterals: true
+  summary_tsv: output/brute_force_mixed_noise/summary.tsv
+  swap_parameter_sets: []

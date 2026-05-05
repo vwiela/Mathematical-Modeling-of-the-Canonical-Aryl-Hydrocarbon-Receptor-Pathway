@@ -1,0 +1,26 @@
+format_version: beta_1
+criterion: AICc
+method: famos
+model_space_files:
+- model_space.tsv
+candidate_space_arguments:
+  critical_parameter_sets: []
+  consecutive_laterals: true
+  summary_tsv: output/famos_mixed_noise/summary.tsv
+  swap_parameter_sets:
+  - - cc1_AhRL
+    - cc2_AhRL
+    - cc1_heterodim
+    - cc2_heterodim
+    - cc1_dna_ahrr
+    - cc2_dna_ahrr
+    - cc1_dna_cyp
+    - cc2_dna_cyp
+    - cc1_nuclearimport
+    - cc_AhRR
+    - cc_Cyp
+    - cc_nAhRL
+    - cc1_Cyp1a1
+    - cc_eL
+    - cc1_Lentry
+    - cc2_Lentry

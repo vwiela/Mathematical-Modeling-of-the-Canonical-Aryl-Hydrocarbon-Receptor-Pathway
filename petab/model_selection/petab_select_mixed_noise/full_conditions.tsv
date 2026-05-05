@@ -1,0 +1,3 @@
+conditionId	init_eL	c1_Lentry	c2_Lentry	c1_AhRL	c2_AhRL	c_nAhRL	c1_nuclearimport	c1_heterodim	c2_heterodim	c1_dna_cyp	c2_dna_cyp	c1_dna_ahrr	c2_dna_ahrr	c_Cyp	c_AhRR	c_eL	c1_Cyp1a1
+MC1000	1000	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+BpA	1000	cc1_Lentry	cc2_Lentry	cc1_AhRL	cc2_AhRL	cc_nAhRL	cc1_nuclearimport	cc1_heterodim	cc2_heterodim	cc1_dna_cyp	cc2_dna_cyp	cc1_dna_ahrr	cc2_dna_ahrr	cc_Cyp	cc_AhRR	cc_eL	cc1_Cyp1a1

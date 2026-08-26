@@ -17,6 +17,7 @@
 
 # User-specific folder
 **/all_ligands_sacess_brute_force_mixed_noise/figures/
+revision_test/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

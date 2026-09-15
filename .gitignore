@@ -18,10 +18,11 @@
 # User-specific folder
 **/all_ligands_sacess_brute_force_mixed_noise/figures/
 revision_test/
+paper/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
+ahr_env/*
 # Mono auto generated files
 mono_crash.*
 
